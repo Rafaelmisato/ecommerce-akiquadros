@@ -10,22 +10,27 @@ export const HeaderWraper = styled.header`
 `;
 
 export const Container = styled.div`
-  padding: 20px 1.5%;
-  background: #fff;
+  padding-top: ${({ header }) => (header ? '5px' : '20px')};
+  padding-bottom: ${({ header }) => (header ? '5px' : '20px')};
+  padding-left: 1.5%;
+  padding-right: 1.5%;
+  background: ${({ header }) => (header ? 'pink' : '#fff')};
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #dedede;
+  transition: all 0.4s ease-in-out;
 
   span > a {
     font-family: 'Vampiro One', cursive;
-    font-size: 30px;
+    font-size: ${({ header }) => (header ? '25px' : '30px')};
     color: #000;
     text-decoration: none;
   }
 
   button {
-    background: #fff;
+    padding-top: 4px;
+    background: transparent;
   }
 
   button + button {
@@ -37,6 +42,18 @@ export const Container = styled.div`
     transition: color 0.3s;
   }
 
+  button:hover > a > svg {
+    color: #9969bf;
+    transition: color 0.3s;
+  }
+
+  button > a:hover > div {
+    position: absolute;
+    top: ${({ header }) => (header ? '42px' : '78px')};
+    right: 10px;
+    transition: all 0.4s linear;
+  }
+
   svg {
     width: 22px;
     height: 22px;
@@ -46,25 +63,14 @@ export const Container = styled.div`
 
 export const MenuList = styled.div`
   display: flex;
+  flex-flow: column nowrap;
   flex-direction: column;
   background: #fff;
   padding: 0 4px;
   position: relative;
-  animation: showRightToLeft 0.4s linear;
-
-  ul > ul {
-    animation: showRightToLeft 0.4s linear;
-  }
-
-  ul > ul > li > a {
-    padding: 10px 0 10px 16px;
-    font-size: 14px;
-    border-bottom: 1px solid #dedede;
-  }
-
-  ul > ul > li > a:last-of-type {
-    border: none;
-  }
+  transform: translateX(-100%);
+  animation: ${({ openMenu }) =>
+    openMenu ? 'closeMenu 0.6s forwards' : 'openMenu 0.4s forwards'};
 
   ul > li {
     border-bottom: 1px solid #dedede;
@@ -100,14 +106,38 @@ export const MenuList = styled.div`
     }
   }
 
-  @keyframes showRightToLeft {
+  @keyframes openMenu {
     0% {
-      position: relative;
-      right: -110%;
+      transform: translateX(0%);
     }
     100% {
-      position: relative;
-      right: 0px;
+      transform: translateX(-100%);
     }
+  }
+
+  @keyframes closeMenu {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+`;
+
+export const SubList = styled.ul`
+  height: ${({ open }) => (open ? '100%' : '0')};
+  opacity: ${({ open }) => (open ? '100%' : '0')};
+
+  transition: all 0.6s ease-in-out;
+
+  li > a {
+    padding: 10px 0 10px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid #dedede;
+  }
+
+  li > a:last-of-type {
+    border: none;
   }
 `;

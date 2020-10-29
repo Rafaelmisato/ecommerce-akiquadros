@@ -10,7 +10,7 @@ export const Container = styled.section`
   display: flex;
   background: url(${bg}) no-repeat center;
   background-size: cover;
-  padding: 30px;
+  padding: 60px 0 30px 0;
   justify-content: space-around;
   font-family: 'Architects Daughter', cursive;
   font-size: 22px;

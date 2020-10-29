@@ -1,21 +1,33 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { TiThMenu } from 'react-icons/ti';
 import { FaShoppingCart } from 'react-icons/fa';
 import { BsCaretDownFill } from 'react-icons/bs';
 import { GoSearch } from 'react-icons/go';
-import { Container, HeaderWraper, MenuList } from './styles';
-import './animations.css';
+import { Container, HeaderWraper, MenuList, SubList } from './styles';
+import CartPopup from '../CartPopup/CartPopup';
 
 const Header = () => {
   const [openMenu, setOpenMenu] = useState(false);
-  const [openSub, setOpenSub] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [header, setHeader] = useState(false);
+
+  const resizeHeader = () => {
+    if (window.scrollY >= 30) {
+      setHeader(true);
+    } else {
+      setHeader(false);
+    }
+  };
+
+  window.addEventListener('scroll', resizeHeader);
 
   return (
     <HeaderWraper>
-      <Container>
+      <Container header={header}>
         <span>
-          <a href="home">AkiQuadros</a>
+          <Link to="/">AkiQuadros</Link>
         </span>
         <div>
           <button type="button" onClick={() => setOpenMenu(!openMenu)}>
@@ -25,48 +37,47 @@ const Header = () => {
             <GoSearch />
           </button>
           <button type="button">
-            <FaShoppingCart />
+            <Link to="/cart">
+              <FaShoppingCart />
+              <CartPopup title="Nenhum produto no carrinho" />
+            </Link>
           </button>
         </div>
       </Container>
 
-      {openMenu && (
-        <MenuList>
-          <ul>
+      <MenuList openMenu={openMenu}>
+        <ul>
+          <li>
+            <a href="home">
+              <span>Página inicial</span>
+            </a>
+          </li>
+          <li>
+            <button type="button" onClick={() => setOpen(!open)}>
+              <span>Categorias</span> <BsCaretDownFill />
+            </button>
+          </li>
+          <SubList open={open}>
             <li>
-              <a href="home">
-                <span>Página inicial</span>
-              </a>
+              <a href="teste">Animais</a>
+              <a href="teste">Figurativos</a>
+              <a href="teste">Filmes</a>
+              <a href="teste">Frases</a>
+              <a href="teste">Geométricos</a>
+              <a href="teste">Infatil</a>
+              <a href="teste">Música</a>
+              <a href="teste">Retrô e Vintage</a>
+              <a href="teste">Séries</a>
+              <a href="teste">Personalizáveis</a>
             </li>
-            <li>
-              <button type="button" onClick={() => setOpenSub(!openSub)}>
-                <span>Categorias</span> <BsCaretDownFill />
-              </button>
-            </li>
-            {openSub && (
-              <ul>
-                <li>
-                  <a href="teste">Animais</a>
-                  <a href="teste">Figurativos</a>
-                  <a href="teste">Filmes</a>
-                  <a href="teste">Frases</a>
-                  <a href="teste">Geométricos</a>
-                  <a href="teste">Infatil</a>
-                  <a href="teste">Música</a>
-                  <a href="teste">Retrô e Vintage</a>
-                  <a href="teste">Séries</a>
-                  <a href="teste">Personalizáveis</a>
-                </li>
-              </ul>
-            )}
-            <li>
-              <a href="create">
-                <span>Crie seu quadro</span>
-              </a>
-            </li>
-          </ul>
-        </MenuList>
-      )}
+          </SubList>
+          <li>
+            <a href="create">
+              <span>Crie seu quadro</span>
+            </a>
+          </li>
+        </ul>
+      </MenuList>
     </HeaderWraper>
   );
 };

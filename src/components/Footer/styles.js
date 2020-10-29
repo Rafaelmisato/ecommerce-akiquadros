@@ -8,6 +8,7 @@ export const Container = styled.footer`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 260px;
 
   .footer-menu {
     color: #f0f3fa;

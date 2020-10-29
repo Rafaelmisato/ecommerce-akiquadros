@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   FaTwitter,
@@ -7,10 +8,8 @@ import {
   FaWhatsapp,
 } from 'react-icons/fa';
 
-import Header from '../../components/Header/Header';
 import Banner from '../../components/Banner/Banner';
 import PromotionCard from '../../components/PromotionCard/PromotionCard';
-import Footer from '../../components/Footer/Footer';
 
 import { Container, Wall, SocialMedia } from './styles';
 
@@ -19,7 +18,6 @@ import SectionTitle from '../../components/SectionTitle/SectionTitle';
 const Home = () => {
   return (
     <>
-      <Header />
       <Banner />
       <PromotionCard />
 
@@ -28,11 +26,11 @@ const Home = () => {
       <Container>
         <Wall>
           <div className="bg1" />
-          <a href="teste">
+          <Link to="/naruto-rocklee">
             <h5>Rock Lee - Naruto</h5>
             <p>R$ 29,90</p>
             <button type="button">Comprar</button>
-          </a>
+          </Link>
         </Wall>
         <Wall>
           <div className="bg2" />
@@ -115,8 +113,6 @@ const Home = () => {
           <FaWhatsapp />
         </div>
       </SocialMedia>
-
-      <Footer />
     </>
   );
 };

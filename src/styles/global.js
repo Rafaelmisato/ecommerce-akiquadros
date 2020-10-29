@@ -11,13 +11,17 @@ export default createGlobalStyle`
   body {
     background: #f0f3fa;
     -webkit-font-smoothing: antialiased;
-    padding-top: 79px;
+    padding-top: 59px;
   }
 
   body, input, button {
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
     border: none;
+  }
+
+  ul, li {
+    list-style-type: none;
   }
 
   button {

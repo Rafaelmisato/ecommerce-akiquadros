@@ -175,5 +175,3 @@ export const SocialMedia = styled.div`
     }
   }
 `;
-
-// colocar efeito blur no svg on hover
