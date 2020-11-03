@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { FaShoppingCart, FaChevronRight } from 'react-icons/fa';
 import {
   Container,
@@ -19,6 +19,10 @@ import image from '../../../assets/rocklee.png';
 const NarutoRockLee = () => {
   const [selected, setSelected] = useState(false);
   const [hiddenInput, setHiddenInput] = useState(false);
+  const [price, setPrice] = useState(29);
+
+  const size = useRef();
+  const acrylic = useRef();
 
   const handleInputBlur = useCallback(() => {
     setSelected(false);
@@ -26,6 +30,18 @@ const NarutoRockLee = () => {
 
   const handleInputFocus = useCallback(() => {
     setSelected(true);
+  }, []);
+
+  const handlePrice = useCallback(() => {
+    setPrice(size.current.value);
+  }, []);
+
+  const handlePriceAcrylic = useCallback(() => {
+    setPrice(
+      acrylic.current.value === 'no'
+        ? Number(size.current.value) + 0
+        : Number(size.current.value) + 10
+    );
   }, []);
 
   return (
@@ -39,11 +55,11 @@ const NarutoRockLee = () => {
           <SelectSize>
             <form>
               <span>Selecione o tamanho</span>
-              <select name="size" id="size">
-                <option value="A5">A5 (15 x 20 cm)</option>
-                <option value="A4">A5 (20 x 30 cm)</option>
-                <option value="A4">A5 (30 x 40 cm)</option>
-                <option value="A2">A5 (40 x 60 cm)</option>
+              <select onChange={handlePrice} ref={size}>
+                <option value={29}>A5 (15 x 20 cm)</option>
+                <option value={59}>A4 (20 x 30 cm)</option>
+                <option value={69}>A3 (30 x 40 cm)</option>
+                <option value={169}>A2 (40 x 60 cm)</option>
               </select>
 
               <span>Moldura</span>
@@ -56,13 +72,13 @@ const NarutoRockLee = () => {
               </select>
 
               <span>Acabamento</span>
-              <select name="acrylic" id="acrylic">
+              <select onChange={handlePriceAcrylic} ref={acrylic}>
                 <option value="no">Sem acrílico</option>
                 <option value="yes">Com acrílico</option>
               </select>
             </form>
 
-            <h5>R$29,90*</h5>
+            <h5>R$ {price},90*</h5>
 
             <section>
               <button
